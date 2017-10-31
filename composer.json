@@ -1,0 +1,25 @@
+{
+    "name": "ignislabs/freighter",
+    "description": "Easy docker development environment management for Laravel",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Luciano Longo",
+            "email": "luciano.longo@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "IgnisLabs\\Freighter\\": "src/"
+        }
+    },
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "IgnisLabs\\Freighter\\FreighterServiceProvider"
+            ]
+        }
+    }
+}

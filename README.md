@@ -1,4 +1,4 @@
 Freighter
 =========
 
-Easy docker environment management for Laravel
+Easy docker development environment management for Laravel
