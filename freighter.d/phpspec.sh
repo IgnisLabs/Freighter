@@ -7,3 +7,7 @@ _fcmd_phpspec() {
 
     $COMPOSE exec -u $UID $IMG_APP vendor/bin/phpspec $@
 }
+
+_fcmd_spec() {
+    _fcmd_phpspec "$@"
+}
