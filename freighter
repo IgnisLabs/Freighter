@@ -52,11 +52,11 @@ _show_help() {
         [[ ! -z "$CMD" ]] && MYCMD="$CMD " || MYCMD=""
 
         echo "Usage:"
-        echo "  ./freighter $MYCMD$HELP_USG"
+        echo -e $HELP_USG | awk -vcmd="$MYCMD" '{print "  ./freighter " cmd $0}'
         if [ "$HELP_TXT" ]; then
             echo ""
             echo "Description:"
-            echo -e "  $HELP_TXT"
+            echo -e $HELP_TXT | awk '{print "  " $0}'
         fi
 
         # If we don't have a CMD, also show command list
