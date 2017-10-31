@@ -21,7 +21,7 @@ services:
     ports:
       - ${F_MYSQL_PORT}:3306
     volumes:
-      - fresighter_mysql:/var/lib/mysql
+      - freighter_mysql:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
       MYSQL_DATABASE: "${DB_DATABASE}"
@@ -33,7 +33,7 @@ services:
     ports:
       - ${F_REDIS_PORT}:6379
     volumes:
-      - fresighter_redis:/data
+      - freighter_redis:/data
 
   beanstalkd:
     build: ./docker/beanstalkd
@@ -41,7 +41,7 @@ services:
       - ${F_QUEUE_PORT}:11300
 
 volumes:
-  fresighter_mysql:
+  freighter_mysql:
     driver: "local"
-  fresighter_redis:
+  freighter_redis:
     driver: "local"
