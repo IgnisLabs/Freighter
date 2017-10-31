@@ -1,3 +1,5 @@
 /vendor/
 composer.lock
 *.sublime-*
+.env
+/docker-compose.yml
