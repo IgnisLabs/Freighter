@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+# Include commands
+for file in ./freighter.d/* ; do
+    if [ -f "$file" ]; then
+        source "$file"
+    fi
+done
+
+# Get which command is supposed to run
+CMD="$1"
+
+# Global usage function
+#   Use --no-args if you want to show help when no args are received
+#   Otherwise it will only react to -h
+_show_help() {
+    HAS_ARGS="yes" # assume it has args
+    if [ "$1" == "--no-args" ]; then
+        shift 1 # gets rid of --no-args
+        [[ "$#" == "0" ]] && HAS_ARGS="no"
+    fi
+
+    if [ "$HAS_ARGS" == "no" ] || [ "$1" == "-h" ]; then
+        # if we have a CMD append space for display purposes
+        [[ ! -z "$CMD" ]] && MYCMD="$CMD " || MYCMD=""
+
+        echo "Usage:"
+        echo "  ./freighter $MYCMD$HELP_USG"
+        if [ "$HELP_TXT" ]; then
+            echo ""
+            echo "Description:"
+            echo -e "  $HELP_TXT"
+        fi
+
+        # If we don't have a CMD, also show command list
+        if [ -z "$CMD" ]; then
+            echo ""
+            _fcmd_list
+        fi
+        exit 1
+    fi
+}
+
+HELP_USG="<command> [<args>]"
+HELP_TXT="Ease up your docker management with Freighter!"
+_show_help --no-args "$@"
+
+if [ ! -z "$CMD" ]; then
+
+    # source env
+    if [ -f .env ]; then
+        source .env
+    fi
+
+    shift 1
+    FCMD="_fcmd_$CMD"
+    if [ "$(type -t $FCMD)" = function ]; then
+        $FCMD "$@"
+    else
+        echo "Command [$CMD] not found"
+    fi
+fi
