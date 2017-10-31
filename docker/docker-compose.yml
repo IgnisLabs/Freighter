@@ -1,0 +1,47 @@
+version: '3'
+services:
+  app:
+    build:
+      context: ./docker/php7
+      args:
+        uid: "${F_WWW_USER}"
+    volumes:
+      - ./:/var/www/html
+
+  nginx:
+    build: ./docker/nginx
+    ports:
+      - ${F_WEB_PORT}:80
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+
+  mysql:
+    image: mysql:5
+    ports:
+      - ${F_MYSQL_PORT}:3306
+    volumes:
+      - fresighter_mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_DATABASE: "${DB_DATABASE}"
+      MYSQL_USER: "${DB_USERNAME}"
+      MYSQL_PASSWORD: "${DB_PASSWORD}"
+
+  redis:
+    image: redis:3.2-alpine
+    ports:
+      - ${F_REDIS_PORT}:6379
+    volumes:
+      - fresighter_redis:/data
+
+  beanstalkd:
+    build: ./docker/beanstalkd
+    ports:
+      - ${F_QUEUE_PORT}:11300
+
+volumes:
+  fresighter_mysql:
+    driver: "local"
+  fresighter_redis:
+    driver: "local"
