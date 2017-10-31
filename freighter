@@ -77,12 +77,11 @@ if [ "$CMD" == "init" ]; then
     echo "# Initializing Freighter"
     echo ""
 
-    if [ -f "$COMPOSE_FILE" ]; then
-        echo "- Already initialized"
-    else
-        echo "- Copying docker-compose.yml to your project"
-        cp "docker/$COMPOSE_FILE" "$COMPOSE_FILE"
-    fi
+    echo "- Make freighter executable"
+    chmod +x freighter
+
+    echo "- Copy docker-compose.yml to your project"
+    cp -i "docker/$COMPOSE_FILE" "$COMPOSE_FILE"
 
     echo ""
     echo "Enjoy!"
