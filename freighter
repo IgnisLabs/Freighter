@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+COMPOSE_FILE="docker-compose.yml"
+COMPOSE="docker-compose -f $COMPOSE_FILE"
+
 # Include commands
 for file in ./freighter.d/* ; do
     if [ -f "$file" ]; then
@@ -9,6 +12,16 @@ done
 
 # Get which command is supposed to run
 CMD="$1"
+
+# Requires docker env to be running
+_req_running() {
+    PS="$($COMPOSE ps -q 2>/dev/null)"
+    if [ -z $PS ]; then
+        echo "You must have your env up and running."
+        echo "Run ./freighter <start|up> first."
+        exit 1
+    fi
+}
 
 # Global usage function
 #   Use --no-args if you want to show help when no args are received
@@ -57,6 +70,9 @@ if [ ! -z "$CMD" ]; then
     if [ "$(type -t $FCMD)" = function ]; then
         $FCMD "$@"
     else
-        echo "Command [$CMD] not found"
+        echo "Command [$CMD] not found. Pass-thru to docker-compose."
+        echo "Running: $COMPOSE $CMD $@"
+        echo ""
+        $COMPOSE "$CMD" "$@"
     fi
 fi
