@@ -16,7 +16,7 @@ CMD="$1"
 # Requires docker env to be running
 _req_running() {
     PS="$($COMPOSE ps -q 2>/dev/null)"
-    if [ -z $PS ]; then
+    if [ -z "$PS" ]; then
         echo "You must have your env up and running."
         echo "Run ./freighter <start|up> first."
         exit 1
