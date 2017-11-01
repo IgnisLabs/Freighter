@@ -14,15 +14,22 @@ export F_REDIS_PORT=${F_REDIS_PORT:-63790}
 export F_QUEUE_PORT=${F_QUEUE_PORT:-11301}
 export F_WWW_USER=${F_WWW_USER:-$UID}
 
-COMPOSE_FILE="docker-compose.yml"
-COMPOSE="docker-compose -f $COMPOSE_FILE"
+# Local directories
+DIR_L_DOCKER="./docker"
+DIR_L_FREIGHTER="./freighter.d"
+# Vendor directories
+DIR_VENDOR="./vendor/ignislabs/freighter"
+DIR_V_DOCKER="$DIR_VENDOR/docker"
+DIR_V_FREIGHTER="$DIR_VENDOR/freighter.d"
 
-# Include commands
-for file in ./freighter.d/* ; do
-    if [ -f "$file" ]; then
-        source "$file"
-    fi
-done
+# Try local compose file first, fallback to vendor
+COMPOSE_FILE="docker-compose.yml"
+if [ ! -f $COMPOSE_FILE ]; then
+    COMPOSE_FILE="$DIR_V_DOCKER/docker-compose.yml"
+fi
+
+# Compose command
+COMPOSE="docker-compose -f $COMPOSE_FILE"
 
 # Get which command is supposed to run
 CMD="$1"
@@ -88,11 +95,12 @@ if [ "$CMD" == "init" ]; then
     exit 0
 fi
 
-# Check for compose file
-if [ ! -f "$COMPOSE_FILE" ]; then
-    echo "No compose file. Run [init] first"
-    exit 1
-fi
+# Include commands
+for file in ./freighter.d/* ; do
+    if [ -f "$file" ]; then
+        source "$file"
+    fi
+done
 
 if [ ! -z "$CMD" ]; then
 
