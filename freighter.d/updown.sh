@@ -1,11 +1,3 @@
-_fcmd_up() {
-    HELP_USG="[<other docker-compose up args>]"
-    HELP_TXT="Start your docker environment in the foreground"
-    _show_help "$@"
-
-    $COMPOSE up "$@"
-}
-
 _fcmd_start() {
     HELP_USG="[<other docker-compose up args>]"
     HELP_TXT="Start your docker environment in detached mode"
@@ -15,7 +7,7 @@ _fcmd_start() {
     $COMPOSE up -d "$@"
 }
 
-_fcmd_down() {
+_fcmd_stop() {
     HELP_USG=""
     HELP_TXT="Stop your docker environment"
     _show_help "$@"
