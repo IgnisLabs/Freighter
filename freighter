@@ -14,17 +14,16 @@ export F_REDIS_PORT=${F_REDIS_PORT:-63790}
 export F_QUEUE_PORT=${F_QUEUE_PORT:-11301}
 export F_WWW_USER=${F_WWW_USER:-$UID}
 
-# Local directories
-DIR_L_DOCKER="./docker"
-DIR_L_FREIGHTER="./freighter.d"
-# Vendor directories
-DIR_VENDOR="./vendor/ignislabs/freighter"
-DIR_V_DOCKER="$DIR_VENDOR/docker"
-DIR_V_FREIGHTER="$DIR_VENDOR/freighter.d"
+# Directories
+DIR_DOCKER="docker"
+DIR_COMMANDS="freighter.d"
+DIR_VENDOR="vendor/ignislabs/freighter"
+DIR_V_DOCKER="$DIR_VENDOR/$DIR_DOCKER"
+DIR_V_COMMANDS="$DIR_VENDOR/$DIR_COMMANDS"
 
 # Try local compose file first, fallback to vendor
 COMPOSE_FILE="docker-compose.yml"
-if [ ! -f $COMPOSE_FILE ]; then
+if [ ! -f "$COMPOSE_FILE" ]; then
     COMPOSE_FILE="$DIR_V_DOCKER/docker-compose.yml"
 fi
 
