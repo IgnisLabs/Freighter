@@ -9,7 +9,7 @@ services:
       - ./:/var/www/html
 
   nginx:
-    build: ./docker/nginx
+    image: nginx:alpine
     ports:
       - ${F_WEB_PORT}:80
     volumes:
