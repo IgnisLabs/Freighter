@@ -29,7 +29,7 @@ services:
       MYSQL_PASSWORD: "${DB_PASSWORD}"
 
   redis:
-    image: redis:3.2-alpine
+    image: redis:alpine
     ports:
       - ${F_REDIS_PORT}:6379
     volumes:
