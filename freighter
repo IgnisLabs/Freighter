@@ -94,12 +94,23 @@ if [ "$CMD" == "init" ]; then
     exit 0
 fi
 
-# Include commands
-for file in ./freighter.d/* ; do
-    if [ -f "$file" ]; then
-        source "$file"
-    fi
-done
+# Include built-in commands
+if [ -d "$DIR_V_COMMANDS" ]; then
+    for file in "$DIR_V_COMMANDS"/*; do
+        if [ -f "$file" ]; then
+            source "$file"
+        fi
+    done
+fi
+
+# Include user commands if any
+if [ -d "$DIR_COMMANDS" ]; then
+    for file in "$DIR_COMMANDS"/*; do
+        if [ -f "$file" ]; then
+            source "$file"
+        fi
+    done
+fi
 
 if [ ! -z "$CMD" ]; then
 
