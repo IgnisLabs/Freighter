@@ -21,6 +21,10 @@ DIR_VENDOR="vendor/ignislabs/freighter"
 DIR_V_DOCKER="$DIR_VENDOR/$DIR_DOCKER"
 DIR_V_COMMANDS="$DIR_VENDOR/$DIR_COMMANDS"
 
+# Files
+F_BIN="freighter"
+F_V_BIN="$DIR_VENDOR/$F_BIN"
+
 # Try local compose file first, fallback to vendor
 COMPOSE_FILE="docker-compose.yml"
 if [ ! -f "$COMPOSE_FILE" ]; then
@@ -83,11 +87,13 @@ if [ "$CMD" == "init" ]; then
     echo "# Initializing Freighter"
     echo ""
 
+    if [ -f "$F_V_BIN" ]; then
+        echo "- Copy freighter executable from vendor"
+        cp $F_V_BIN $F_BIN
+    fi
+
     echo "- Make freighter executable"
     chmod +x freighter
-
-    echo "- Copy docker-compose.yml to your project"
-    cp -i "docker/$COMPOSE_FILE" "$COMPOSE_FILE"
 
     echo ""
     echo "Enjoy!"
