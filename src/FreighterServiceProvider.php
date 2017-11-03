@@ -10,8 +10,6 @@ class FreighterServiceProvider extends ServiceProvider
     {
         $path = realpath(__DIR__.'/../');
         $this->publishes([
-            $path.'/docker' => base_path('docker'),
-            $path.'/freighter.d' => base_path('freighter.d'),
             $path.'/freighter' => base_path('freighter'),
         ]);
     }
