@@ -62,11 +62,11 @@ _show_help() {
         [[ ! -z "$CMD" ]] && MYCMD="$CMD " || MYCMD=""
 
         echo "Usage:"
-        echo -e $HELP_USG | awk -vcmd="$MYCMD" '{print "  ./freighter " cmd $0}'
+        echo -e "$HELP_USG" | awk -vcmd="$MYCMD" '{print "  ./freighter " cmd $0}'
         if [ "$HELP_TXT" ]; then
             echo ""
             echo "Description:"
-            echo -e $HELP_TXT | awk '{print "  " $0}'
+            echo -e "$HELP_TXT" | awk '{print "  " $0}'
         fi
 
         # If we don't have a CMD, also show command list
@@ -127,11 +127,11 @@ if [ ! -z "$CMD" ]; then
 
     shift 1
     FCMD="_fcmd_$CMD"
-    if [ "$(type -t $FCMD)" = function ]; then
+    if [ "$(type -t "$FCMD")" = function ]; then
         $FCMD "$@"
     else
         echo "Command [$CMD] not found. Pass-thru to docker-compose."
-        echo "Running: $COMPOSE $CMD $@"
+        echo "Running: $COMPOSE $CMD" "$@"
         echo ""
         $COMPOSE "$CMD" "$@"
     fi
