@@ -27,7 +27,7 @@ F_V_BIN="$DIR_VENDOR/$F_BIN"
 F_COMPOSE="docker-compose.yml"
 
 # Try local compose file first, fallback to vendor
-[ -f "$F_COMPOSE" ] && COMPOSE_FILE="$F_COMPOSE" || COMPOSE_FILE="$DIR_V_DOCKER/$F_COMPOSE"
+[ -f "$F_COMPOSE" ] && COMPOSE_FILE="$F_COMPOSE" || COMPOSE_FILE="$DIR_VENDOR/$F_COMPOSE"
 
 # Compose command
 COMPOSE="docker-compose -f $COMPOSE_FILE"
