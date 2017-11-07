@@ -87,6 +87,11 @@ if [ "$CMD" == "init" ]; then
     echo "# Initializing Freighter"
     echo ""
 
+    if [ ! -f "$F_BIN" ]; then
+        echo "- Add freighter executable to git ignore"
+        echo "freighter" >> .gitignore
+    fi
+
     if [ -f "$F_V_BIN" ]; then
         echo "- Copy freighter executable from vendor"
         cp $F_V_BIN $F_BIN

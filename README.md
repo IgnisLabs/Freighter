@@ -6,14 +6,26 @@ Easy docker development environment management for Laravel
 Installation
 ------------
 
+You install it with composer:
+
 ```shell
+# Install it with composer
 $ composer require ignislabs/freighter
-$ php artisan vendor:publish --provider="IgnisLabs\Freighter\FreighterServiceProvider"
+```
 
-# Initialize (first-time only)
-$ bash freighter init
+Then you need to run init just this first time (or when a new version is
+released):
 
-# Now you can use it directly
+```shell
+$ bash vendor/ignislabs/freighter/freighter init
+```
+
+> init copies the freighter binary to the root of your repo, makes it
+executable and adds it to `.gitignore`, since you don't need to track it.
+
+And now you're ready to use it:
+
+```
 $ ./freighter start
 ```
 
