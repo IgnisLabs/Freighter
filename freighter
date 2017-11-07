@@ -24,12 +24,10 @@ DIR_V_COMMANDS="$DIR_VENDOR/$DIR_COMMANDS"
 # Files
 F_BIN="freighter"
 F_V_BIN="$DIR_VENDOR/$F_BIN"
+F_COMPOSE="docker-compose.yml"
 
 # Try local compose file first, fallback to vendor
-COMPOSE_FILE="docker-compose.yml"
-if [ ! -f "$COMPOSE_FILE" ]; then
-    COMPOSE_FILE="$DIR_V_DOCKER/docker-compose.yml"
-fi
+[ -f "$F_COMPOSE" ] && COMPOSE_FILE="$F_COMPOSE" || COMPOSE_FILE="$DIR_V_DOCKER/$F_COMPOSE"
 
 # Compose command
 COMPOSE="docker-compose -f $COMPOSE_FILE"
@@ -103,6 +101,9 @@ if [ "$CMD" == "init" ]; then
     echo ""
     echo "Enjoy!"
     exit 0
+elif [ "$CMD" == "copy-services" ]; then
+    cp "$DIR_V_DOCKER/$F_COMPOSE" "$F_COMPOSE"
+    echo "Copied $DIR_V_DOCKER/$F_COMPOSE to ./$F_COMPOSE"
 fi
 
 # Include built-in commands
