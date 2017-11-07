@@ -2,7 +2,7 @@ version: '3'
 services:
   app:
     build:
-      context: ./docker/php7
+      context: ${F_CONTEXT}/php7
       args:
         uid: "${F_WWW_USER}"
     volumes:
@@ -14,7 +14,7 @@ services:
       - ${F_WEB_PORT}:80
     volumes:
       - ./:/var/www/html
-      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ${F_CONTEXT}/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
 
   mysql:
     image: mysql:5
@@ -36,7 +36,7 @@ services:
       - freighter_redis:/data
 
   beanstalkd:
-    build: ./docker/beanstalkd
+    build: ${F_CONTEXT}/beanstalkd
     ports:
       - ${F_QUEUE_PORT}:11300
 

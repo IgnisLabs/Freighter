@@ -7,13 +7,6 @@ IMG_MYSQL='mysql'
 IMG_REDIS='redis'
 IMG_QUEUE='beanstalkd'
 
-# Freighter env vars defaults for docker
-export F_WEB_PORT=${F_WEB_PORT:-8000}
-export F_MYSQL_PORT=${F_MYSQL_PORT:-33060}
-export F_REDIS_PORT=${F_REDIS_PORT:-63790}
-export F_QUEUE_PORT=${F_QUEUE_PORT:-11301}
-export F_WWW_USER=${F_WWW_USER:-$UID}
-
 # Directories
 DIR_DOCKER="docker"
 DIR_COMMANDS="freighter.d"
@@ -26,11 +19,19 @@ F_BIN="freighter"
 F_V_BIN="$DIR_VENDOR/$F_BIN"
 F_COMPOSE="docker-compose.yml"
 
+# Freighter env vars defaults for docker
+export F_WEB_PORT=${F_WEB_PORT:-8000}
+export F_MYSQL_PORT=${F_MYSQL_PORT:-33060}
+export F_REDIS_PORT=${F_REDIS_PORT:-63790}
+export F_QUEUE_PORT=${F_QUEUE_PORT:-11301}
+export F_WWW_USER=${F_WWW_USER:-$UID}
+export F_CONTEXT="./$DIR_V_DOCKER"
+
 # Try local compose file first, fallback to vendor
 [ -f "$F_COMPOSE" ] && COMPOSE_FILE="$F_COMPOSE" || COMPOSE_FILE="$DIR_VENDOR/$F_COMPOSE"
 
 # Compose command
-COMPOSE="docker-compose -f $COMPOSE_FILE"
+COMPOSE="docker-compose --project-directory ./ -f $COMPOSE_FILE"
 
 # Get which command is supposed to run
 CMD="$1"
