@@ -4,7 +4,7 @@ _fcmd_start() {
     HELP_TXT="$HELP_TXT\nYou'll have to run <down> manually to stop running containers"
     _show_help "$@"
 
-    $COMPOSE up -d "$@"
+    $COMPOSE up -d "$@" && echo -e "\n> Started @ http://localhost:$F_WEB_PORT"
 }
 
 _fcmd_stop() {
