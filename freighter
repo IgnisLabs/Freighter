@@ -86,7 +86,7 @@ if [ "$CMD" == "init" ]; then
     echo "# Initializing Freighter"
     echo ""
 
-    if [ ! -f "$F_BIN" ]; then
+    if ! grep -Fxq freighter .gitignore; then
         echo "- Add freighter executable to git ignore"
         echo "freighter" >> .gitignore
     fi
