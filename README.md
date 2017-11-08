@@ -31,7 +31,7 @@ released):
 $ bash vendor/ignislabs/freighter/freighter init
 ```
 
-> init copies the freighter binary to the root of your repo, makes it
+> `init` copies the freighter binary to the root of your repo, makes it
 executable and adds it to `.gitignore`, since you don't need to track it.
 
 And now you're ready to use it:
@@ -43,8 +43,8 @@ $ ./freighter start
 The Stack
 ---------
 
-The stack provided is comprehensive, but trying to keep it as small as
-possible by using alpine linux where we can.
+The stack provided is comprehensive, but we try to keep it as minimal as
+possible by using Alpine Linux whenever possible.
 
 - PHP 7.1 FPM ([latest](https://hub.docker.com/_/php/))
 - MySQL 5.7 ([latest](https://hub.docker.com/_/mysql/))
@@ -55,8 +55,8 @@ possible by using alpine linux where we can.
 Ports
 -----
 
-Inside your containers, the ports will remain the default ones. But for
-accessing from the host machine it's a different story.
+Inside your containers, the ports will remain the default ones. But when
+accessing them from the host machine it's a different story.
 
 Freighter plays nice with other services that you might be already
 running by using easy to remember non-standard ports by default:
@@ -84,9 +84,9 @@ F_QUEUE_PORT=11300
 Hosts
 -----
 
-Inside your containers the hosts will correspond to the containers names
-as defined in the `docker-compose.yml` file, so you'll need to replace
-them in your `.env` file:
+Inside your containers the host names will correspond to the services
+names as defined in the Compose file, so you'll need to replace them in
+your `.env` file:
 
 ```
 # .env
@@ -97,26 +97,39 @@ REDIS_HOST=redis
 QUEUE_HOST=beanstalkd
 ```
 
-You'll probably also need to use `QUEUE_HOST` in your `config/queue.php`
-manually since Laravel comes with it hardcoded by default. Just add
-`'host' => env('QUEUE_HOST', 'localhost'),` to the redis connection.
+If using Laravel you'll probably also need to add `QUEUE_HOST` in your
+`config/queue.php` manually since Laravel comes with it hardcoded by
+default. Just add `'host' => env('QUEUE_HOST', 'localhost'),` to the
+`beanstalkd` connection.
 
 MySQL
 -----
 
-Freighter uses the DB credentials defined in your`.env` file, so you can
-use those to connect from your host machine. Just remember to use the
-correct port (`33060` by default).
+Freighter uses the credentials from environment variables defined in
+your`.env` file, so you can use those to connect from your host machine.
+
+Just remember to use the correct port (`33060` by default).
+
+The variable names follow the Laravel convention:
+
+```
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=freighter
+DB_USERNAME=freighter
+DB_PASSWORD=secret
+```
 
 Commands
 --------
 
-Freighter comes with a few built-in commands, but more will be coming.
+Freighter comes with a few _native_ commands, and more will be coming.
 
 Any unrecognized command will be handed down to `docker-compose`.
 
-You can see any command's help by either passing `-h`. Some commands
-will show help if you omit all arguments
+You can see any command's help by passing `-h`. Some commands will also
+show help if you omit all arguments.
 
 ### Start and stop your environment
 
@@ -136,14 +149,14 @@ vendor to your repo manually or by running `./freighter copy-services`.
 If a compose file is found here, Freighter will use this one instead of
 the one in vendor.
 
-You can now add services or customize the existing ones. As long as you
-keep te same service names, you should be fine.
+This way Youy can add services or customize the existing ones. As long
+as you keep te same service names, you should be fine.
 
 ### Composer
 
 ```shell
 $ ./freighter composer <command>
-$ ./freighter c <command> # alias
+$ ./freighter c <command> # composer alias
 
 # Example: require a package
 $ ./freighter c require predis/predis
@@ -152,7 +165,7 @@ $ ./freighter c require predis/predis
 
 ```shell
 $ ./freighter artisan <command>
-$ ./freighter art <command> # alias
+$ ./freighter art <command> # artisan alias
 
 # Example: run artisan tinker
 $ ./freighter art tinker
@@ -186,7 +199,7 @@ $ ./freighter spec desc App\\Foo\\Bar\\Baz
 # behat
 $ ./freighter behat <command>
 
-# Example: init behat
+# Example: initialize behat
 $ ./freighter behat --init
 ```
 
@@ -194,7 +207,7 @@ $ ./freighter behat --init
 
 ```shell
 $ ./freighter shell <container>
-$ ./freighter sh <container> # alias
+$ ./freighter sh <container> # shell alias
 
 # Example: drop to bash on app container
 $ ./freighter shell app
