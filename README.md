@@ -117,6 +117,17 @@ $ ./freighter start
 $ ./freighter stop # this is just an alias to docker's native `down`
 ```
 
+### Customize services
+
+If you want to customize the compose file, you can copy the one in
+vendor to your repo manually or by running `./freighter copy-services`.
+
+If a compose file is found here, Freighter will use this one instead of
+the one in vendor.
+
+You can now add services or customize the existing ones. As long as you
+keep te same service names, you should be fine.
+
 ### Composer
 
 ```shell
