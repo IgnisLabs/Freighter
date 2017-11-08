@@ -228,6 +228,12 @@ $ ./freighter db:dump
 $ ./freighter db:dump dump.sql
 ```
 
+```shell
+# Connect to mysql console
+$ ./freighter db:console
+$ ./freighter db:clt # db:console alias
+```
+
 ### Running Docker Compose commands
 
 As I mentioned earlier, any unrecognized command will be handed down to

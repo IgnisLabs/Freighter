@@ -5,10 +5,10 @@ _fcmd_db:dump() {
 
     _req_running
 
-    dump=$($COMPOSE exec $IMG_MYSQL mysqldump -u root -p$DB_PASSWORD $DB_DATABASE | grep -v "mysqldump: \[Warning\]")
+    dump=$($COMPOSE exec "$IMG_MYSQL" mysqldump -u root -p"$DB_PASSWORD" "$DB_DATABASE" | grep -v "mysqldump: \[Warning\]")
 
     if [ ! -z "$1" ]; then
-        echo "$dump" > $1
+        echo "$dump" > "$1"
         echo "Dump saved to [$1]"
     else
         echo "$dump"
