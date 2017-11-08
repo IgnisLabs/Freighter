@@ -1,6 +1,6 @@
 {
     "name": "ignislabs/freighter",
-    "description": "Easy docker development environment management for Laravel",
+    "description": "Easy docker development environment management for PHP and Laravel",
     "type": "library",
     "license": "MIT",
     "authors": [

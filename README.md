@@ -1,7 +1,18 @@
 Freighter
 =========
 
-Easy docker development environment management for Laravel
+Easy docker development environment management for PHP and Laravel.
+
+> **You don't need to have a Laravel project to use Freighter.**  
+> You have more toys if you're using Laravel, but you certainly don't
+> require to do so.
+> 
+> It does come with Laravel-oriented commands, but you don't need to use
+> them.
+> 
+> It also does use the database environment variables names as defined
+> by Laravel, but as long as you have an `.env` file with those
+> variables declared, it's more than enough.
 
 Installation
 ------------
