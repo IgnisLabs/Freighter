@@ -223,13 +223,14 @@ $ ./freighter logs -f redis
 Freighter is incredibly easy to extend (as long as you know your way
 around bash scripting :bowtie:).
 
-Just add files in the `freighter.d` directory and they will be picked up
-immediately.
+Just create a directory named `freighter.d` at the root of your repo and
+add shell scripts in it, Freighter will be pick them up immediately.
 
 These files need to declare functions prefixed as `_fcmd_`, for example:
 `_fcmd_artisan`.
 
-Take a look at how they are implemented and you'll pick it up real quick.
+Take a look at the native ones in `vendor/ignislabs/freighter/freighter.d`
+so you have an idea of how to write them.
 
 > An artisan command to generate custom Freighter commands even quicker
 > is in the works.
