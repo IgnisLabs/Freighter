@@ -17,7 +17,7 @@ RUN sh /var/composer-installer.sh
 RUN apt-get update && apt-get install -qq git git-core curl \
     libz-dev \
     libjpeg-dev \
-    libpng12-dev \
+    libpng-dev \
     libfreetype6-dev \
     libssl-dev \
     zip \
