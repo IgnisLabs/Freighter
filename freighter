@@ -103,8 +103,9 @@ if [ "$CMD" == "init" ]; then
     echo "Enjoy!"
     exit 0
 elif [ "$CMD" == "copy-services" ]; then
-    cp "$DIR_V_DOCKER/$F_COMPOSE" "$F_COMPOSE"
-    echo "Copied $DIR_V_DOCKER/$F_COMPOSE to ./$F_COMPOSE"
+    cp "$DIR_VENDOR/$F_COMPOSE" "$F_COMPOSE"
+    echo "Copied $DIR_VENDOR/$F_COMPOSE to ./$F_COMPOSE"
+    exit 0
 fi
 
 # Include built-in commands
